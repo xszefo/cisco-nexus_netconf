@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-
+from ncclient import manager
 
 
 def main():
@@ -10,6 +10,14 @@ def main():
     username = 'admin'
     password = 'Admin_1234!'
 
+    with manager.connect(host=host, 
+                        port=netconf_port, 
+                        username=username, 
+                        password=password, 
+                        hostkey_verify=False) as m:
 
+        print(m.connected)
+
+    
 if __name__ == '__main__':
     main()
