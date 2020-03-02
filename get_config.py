@@ -20,8 +20,19 @@ def main():
 
         if m.connected: print('Connected')
         
-        for x in dir(m):
+        for x in m.server_capabilities:
             print(x)
+
+        interface_filter = """
+        <filter>
+            <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+                <interface>
+                    <name>Lo1</name>
+                </interface>
+            </interfaces>
+        </filter>
+        """
+        print(m.get_config('running', interface_filter))
 
 if __name__ == '__main__':
     main()
