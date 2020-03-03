@@ -16,6 +16,8 @@ def main():
                         username=username, 
                         password=password, 
                         hostkey_verify=False,
+                        allow_agent=False,
+                        look_for_keys=False,
                         device_params = {'name': 'nexus'}) as m:
 
         if m.connected: print('Connected')
@@ -27,12 +29,24 @@ def main():
         <filter>
             <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
                 <interface>
-                    <name>Lo1</name>
+                    <name>Loopback1</name>
                 </interface>
             </interfaces>
         </filter>
         """
-        print(m.get_config('running', interface_filter))
+
+
+        hostname_filter = '''
+                          <show xmlns="http://www.cisco.com/nxos:1.0">
+                              <hostname>
+                              </hostname>
+                          </show>
+                          '''
+
+        x = m.get_config('running', interface_filter)
+        #x = m.get(('subtree', hostname_filter))
+        print('test')
+        print(x)
 
 if __name__ == '__main__':
     main()
