@@ -35,6 +35,6 @@ def main():
         xml = x.data_ele
         #print(etree.tostring(xml))
         print(xml.find('.//{http://cisco.com/ns/yang/cisco-nx-os-device}serial').text)
-
+        
 if __name__ == '__main__':
     sys.exit(main())
