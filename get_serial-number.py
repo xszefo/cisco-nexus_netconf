@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from ncclient import manager
-
+import sys
 
 def main():
     # CONSTANTS
@@ -22,28 +22,19 @@ def main():
 
         if m.connected: print('Connected')
         
-        interface_filter = """
-        <filter>
-            <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-                <interface>
-                    <name>Loopback1</name>
-                </interface>
-            </interfaces>
-        </filter>
+        sn_filter = """
+        <System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
+        <serial/>
+        </System>
         """
 
-
-        hostname_filter = '''
-                          <show xmlns="http://www.cisco.com/nxos:1.0">
-                              <hostname>
-                              </hostname>
-                          </show>
-                          '''
-
-        x = m.get_config('running', interface_filter)
-        #x = m.get(('subtree', hostname_filter))
-        print('test')
-        print(x)
+        try:
+            x = m.get(('subtree', sn_filter))
+            #print(x)
+            xml = x.data_ele
+            print(xml)
+        except Exception as err:
+            print(err)
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
