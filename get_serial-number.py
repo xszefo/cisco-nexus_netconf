@@ -2,6 +2,7 @@
 
 from ncclient import manager
 import sys
+from lxml import etree
 
 def main():
     # CONSTANTS
@@ -22,19 +23,18 @@ def main():
 
         if m.connected: print('Connected')
         
+
         sn_filter = """
         <System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
         <serial/>
         </System>
         """
 
-        try:
-            x = m.get(('subtree', sn_filter))
-            #print(x)
-            xml = x.data_ele
-            print(xml)
-        except Exception as err:
-            print(err)
+        x = m.get(('subtree', sn_filter))
+        #print(x)
+        xml = x.data_ele
+        #print(etree.tostring(xml))
+        print(xml.find('.//{http://cisco.com/ns/yang/cisco-nx-os-device}serial').text)
 
 if __name__ == '__main__':
     sys.exit(main())
