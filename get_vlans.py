@@ -34,6 +34,7 @@ def main():
         </System>
         """
 
+
         vlan_filter = """
         <System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
             <stp-items>
