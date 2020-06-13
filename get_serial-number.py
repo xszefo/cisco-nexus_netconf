@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from ncclient import manager
+import ncclient.manager
 import sys
 from lxml import etree
 
@@ -12,7 +12,7 @@ def main():
     password = 'Admin_1234!'
     
     print('Connecting to {}...'.format(host))
-    with manager.connect(host=host, 
+    with ncclient.manager.connect(host=host, 
                         port=netconf_port, 
                         username=username, 
                         password=password, 
