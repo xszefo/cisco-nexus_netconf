@@ -23,24 +23,26 @@ def main():
 
         if m.connected: print('Connected')
         
+        int_id = 'lo101'
+        int_descr = 'Test'
 
-        loopback_config = """
+        loopback_config = f'''
         <config>
-			<System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
-				<intf-items>
-					<lb-items>
-						<LbRtdIf-list>
-							<id>lo101</id>
-							<adminSt>up</adminSt>
-							<descr>Test</descr>
-						</LbRtdIf-list>
-					</lb-items>
-				</intf-items>
-			</System>
-		</config>
-        """
+            <System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
+                <intf-items>
+                    <lb-items>
+                        <LbRtdIf-list>
+                            <id>{int_id}</id>
+                            <adminSt>up</adminSt>
+                            <descr>{int_descr}</descr>
+                        </LbRtdIf-list>
+                    </lb-items>
+                </intf-items>
+            </System>
+        </config>
+        '''
         
-        print('Adding lo101...')
+        print(f'Adding {int_id} with description {int_descr}...')
         x = m.edit_config(target='running', config=loopback_config)
         print(x)
         

@@ -23,22 +23,23 @@ def main():
 
         if m.connected: print('Connected')
         
+        int_id = 'lo101'
 
-        loopback_config = """
+        loopback_config = f'''
         <config>
 			<System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
 				<intf-items>
 					<lb-items>
 						<LbRtdIf-list operation="remove">
-							<id>lo101</id>
+							<id>{int_id}</id>
 						</LbRtdIf-list>
 					</lb-items>
 				</intf-items>
 			</System>
 		</config>
-        """
+        '''
         
-        print('Adding lo101...')
+        print('Deleting {int_id}...')
         x = m.edit_config(target='running', config=loopback_config)
         print(x)
         
