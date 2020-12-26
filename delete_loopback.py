@@ -24,27 +24,24 @@ def main():
         if m.connected: print('Connected')
         
 
-        sn_filter = """
-        <System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
-        <intf-items>
-        <lb-items>
-        </lb-items>
-        </intf-items>
-        </System>
+        loopback_config = """
+        <config>
+			<System xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
+				<intf-items>
+					<lb-items>
+						<LbRtdIf-list operation="remove">
+							<id>lo101</id>
+						</LbRtdIf-list>
+					</lb-items>
+				</intf-items>
+			</System>
+		</config>
         """
+        
+        print('Adding lo101...')
+        x = m.edit_config(target='running', config=loopback_config)
+        print(x)
+        
 
-        x = m.get(('subtree', sn_filter))
-        #print(x)
-        xml = x.data_ele
-        #print(etree.tostring(xml))
-        #print(xml)
-        attrs = xml.find(".//{http://cisco.com/ns/yang/cisco-nx-os-device}LbRtdIf-list").getchildren()
-        int_id = attrs[0]
-        int_descr = attrs[2]
-        print(int_id.text, int_descr.text)
-
-
-        return True
-    
 if __name__ == '__main__':
     sys.exit(main())
