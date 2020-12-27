@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import sys
-
-
+from ncclient import manager
 from lxml import etree
 
 def main():
@@ -54,5 +53,4 @@ def main():
 
         
 if __name__ == '__main__':
-    from ncclient import manager
     sys.exit(main())
